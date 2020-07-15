@@ -1,0 +1,20 @@
+<!--pages/orderDetail/index.wxml-->
+<view class="page">
+  <view wx:if="{{isLogin}}">
+    <view class="order-detail-info">
+      <view>快递单号：{{num}}</view>
+    </view>
+    <view class="order-detail" wx:if="{{stepsList.length>0 && !loading}}">
+      <view class="order-detail-title">物流信息</view>
+      <view class="order-detail-item" wx:for='{{stepsList}}' wx:key="index" >
+        <view>{{item.display}}</view>
+        <view style="color:#999">{{item.time}}</view>
+      </view>
+    </view>
+    <view class="end-line" wx:if="{{stepsList.length < 1 && !loading}}">暂无物流信息</view>
+  </view>
+  <view class="login-tips" wx:if="{{ !isLogin }}">
+    <image src="../../icon/login-icon.png" mode="aspectFit"></image>
+    <view>未登录 <text catchtap="loginTo" style="color:#1ca3fa">去登录</text></view>
+  </view>
+</view>

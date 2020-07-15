@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "modal": "../../components/modal"
+  },
+  "navigationBarTitleText": "寄件",
+  "navigationBarBackgroundColor": "#1ca3fa",
+  "navigationBarTextStyle": "white"
+}

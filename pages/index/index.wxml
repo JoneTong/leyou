@@ -1,0 +1,212 @@
+<!--index.wxml-->
+<view class="page {{showModal?'hide':''}}">
+  <!-- <view class="announcement" catchtap="viewAnnounce">
+    <view class="announcement-icon">
+      <image src="../../icon/speaker-on.png"></image>
+    </view>
+    <view class="announcement-text {{announcedText.length>60?'overflow':''}}" >：{{announcedText}}</view>
+  </view> -->
+  <view class="send-order">
+    <view class="send-order-container {{showSendInfo?'line':''}}" catchtap="showSendForm">
+      <view class="order-type">
+        <image mode="aspectFit" src="../../icon/send-order-on.png"></image>
+      </view>
+      <!-- <view class="order-position" catchtap="getAddrss" wx:if="{{showSendInfo && useAddess.send_name}}" catchtap="getAddressData">
+        <image mode="aspectFit" src="../../icon/use-address-on.png"></image>
+      </view> -->
+      <view class="order-info">
+        <view wx:if="{{!showSendInfo}}" >
+          <view class="show-send-order"  wx:if="{{!formData.send_name && !formData.send_phone && !formData.send_address}}">寄件人信息</view>
+          <view wx:else class="ellipsis">{{formData.send_name}} {{formData.send_phone}} {{formData.send_address}}</view>
+        </view>
+        <view class="stop-send-order {{showSendInfo?'animate-send-order': ''}}" >寄件人信息</view>
+      </view>
+    </view>
+    <view class="send-info-form" wx:if="{{showSendInfo}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" value="{{formData.send_name}}" data-nam="send_name" bindblur="setFormDataInfo" placeholder="寄件人姓名（非必填）"/>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" type="number" value="{{formData.send_phone}}" data-nam="send_phone" bindblur="setFormDataInfo" placeholder="寄件电话（必填）" />
+        </view>
+      </view>
+      <!-- <picker mode="region" bindchange="bindSendRegionChange" value="{{sendRegion}}" >
+        <view wx:if="{{sendRegion.length>0}}" class="picker">寄件地址：{{sendRegion[0]}}，{{sendRegion[1]}}，{{sendRegion[2]}}</view>
+        <view wx:else class="picker">请选择寄件地址</view>
+      </picker> -->
+      <textarea auto-height placeholder="寄件地址（非必填）" value="{{formData.send_address}}" data-nam="send_address" bindblur="setFormDataInfo"/>
+    </view>
+  </view>
+  <view class="receipts-order">
+    <view class="receipts-order-container {{showReceptInfo?'line':''}}" catchtap="showReceptForm">
+      <view class="order-type">
+        <image mode="aspectFit" src="../../icon/recept-order-on.png"></image>
+      </view>
+      <view class="order-position" wx:if="{{showReceptInfo}}" catchtap="getAddressData">
+        <image mode="aspectFit" src="../../icon/recept-address.png"></image>
+      </view>
+      <view class="order-info">
+        <view wx:if="{{!showReceptInfo}}">
+          <view wx:if="{{!formData.name && !formData.phone && !formData.address }}">寄到哪里</view>
+          <view wx:else class="ellipsis">{{formData.name}} {{formData.phone}} {{formData.address}}</view>
+        </view>
+        <view class="stop-recept-order {{showReceptInfo?'animate-recept-order': ''}}" >寄到哪里</view>
+      </view>
+    </view>
+    <view class="send-info-form" wx:if="{{showReceptInfo}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" auto-focus placeholder="收件人姓名（必填）" value="{{formData.name}}" data-nam="name" bindblur="setFormDataInfo"/>
+        </view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" type="number" placeholder="收件电话（必填）" value="{{formData.phone}}" data-nam="phone" bindblur="setFormDataInfo"/>
+        </view>
+      </view>
+      <!-- <picker mode="region" bindchange="bindReceptRegionChange" value="{{receptRegion}}" >
+        <view wx:if="{{receptRegion.length>0}}" class="picker">收件地址：{{receptRegion[0]}}，{{receptRegion[1]}}，{{receptRegion[2]}}</view>
+        <view wx:else class="picker">请选择收件地址</view>
+      </picker> -->
+      <textarea auto-height placeholder="收件地址（必填）" value="{{formData.address}}" data-nam="address" bindblur="setFormDataInfo"/>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" type="text" placeholder="身份证号（非必填）" value="{{formData.idcard}}" data-nam="idcard" bindblur="setFormDataInfo"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-type-container">
+    <view class="order-type-contanct">
+      <view class="order-type-items">
+        <picker bindchange="bindPickerChange" value="{{orderTepyVal}}" range="{{orderType}}">
+          <view class="picker">
+            寄件类型：{{orderType[orderTepyVal]}}
+          </view>
+        </picker>
+      </view>
+      <view class="order-type-items">
+        <text>快递单号：</text>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input value="{{formData.order_no}}" data-nam="order_no" bindblur="setFormDataInfo" class="weui-input" maxlength="40" placeholder="单号（必填）" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="order-type-contanct {{index}}" wx:for="{{goods}}" wx:key="index">
+      <view class="order-type-items">
+        <text>内件品名：</text>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" maxlength="30" placeholder="品名（必填）" value="{{item.product_name}}"  data-index="{{index}}" data-nam="product_name" bindblur="goodsChange"/>
+          </view>
+        </view>
+      </view>
+      <view class="order-type-items">
+        <text>内件品牌：</text>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" maxlength="30" placeholder="品牌（必填）" value="{{item.product_brand}}"  data-index="{{index}}" data-nam="product_brand" bindblur="goodsChange"/>
+          </view>
+        </view>
+      </view>
+      <view class="order-type-items">
+        <text>内件规格：</text>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" maxlength="30" placeholder="规格（必填）" value="{{item.product_format}}" data-index="{{index}}" data-nam="product_format" bindblur="goodsChange"/>
+          </view>
+        </view>
+      </view>
+      <view class="order-type-items">
+        <text>内件数量：</text>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" maxlength="30" placeholder="数量（必填）" value="{{item.product_cnt}}" data-index="{{index}}" data-nam="product_cnt" bindblur="goodsChange"/>
+          </view>
+        </view>
+      </view>
+      <view class="order-type-items cut-btn" wx:if="{{goods.length>1}}">
+        <view >
+          <image data-index="{{index}}" catchtap="cutGoods" style="width:50rpx;height:50rpx;" src="../../icon/cut.png" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>  
+  </view>
+  <view class="add-btn">
+    <view>
+      <image catchtap="addGoods" style="width:50rpx;height:50rpx;" src="../../icon/add.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="btn-area">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <text>保费($)：</text>
+          <input class="weui-input" type="text" value="{{formData.insurance}}" data-nam="insurance" bindblur="setFormDataInfo" placeholder="保费（必填）" />
+        </view>
+      </view>
+      <button class="submit-order mini-btn" size="mini" type="primary" catchtap="confirmData">确认信息</button>
+  </view>
+  <modal show="{{showModal}}" bind:cancel="cancelModal">
+    <view class="main-content"> 
+      <view class="modal-content">
+        <view class="modal-item" wx:if="{{formData.send_name}}">
+          <view>寄件人姓名</view><view>{{formData.send_name}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.send_phone}}">
+          <view>寄件人电话</view><view>{{formData.send_phone}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.send_address}}">
+          <view>寄件人地址</view><view>{{formData.send_address}}</view>
+        </view>
+        <!-- <view class="modal-title">收件信息</view> -->
+        <view class="modal-item" wx:if="{{formData.name}}">
+          <view>收件人姓名</view><view>{{formData.name}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.phone}}">
+          <view>收件人电话</view><view>{{formData.phone}}</view>
+        </view>
+        <view class="modal-item ellipsis" wx:if="{{formData.address}}">
+          <view>收件人地址</view><view>{{formData.address}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.idcard}}">
+          <view>收件人身份证</view><view>{{formData.idcard}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.order_no}}" >
+          <view>快递单号</view><view>{{formData.order_no}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.service_type}}" >
+          <view>运单类型</view><view>{{formData.service_type}}</view>
+        </view>
+        <view class="modal-item" wx:if="{{formData.insurance}}" >
+          <view>保费</view><view>{{formData.insurance}}</view>
+        </view>
+      </view>
+      <view class="modal-content">
+        <view wx:for="{{formData.trim}}" wx:key="index" class="product-item">
+          <view class="modal-item" wx:if="{{item.product_name}}">
+            <view>内件名称</view><view>{{item.product_name}}</view>
+          </view>
+          <view class="modal-item" wx:if="{{item.product_brand}}">
+            <view>内件品牌</view><view>{{item.product_brand}}</view>
+          </view>
+          <view class="modal-item" wx:if="{{item.product_format}}">
+            <view>内件规格</view><view>{{item.product_format}}</view>
+          </view>
+          <view class="modal-item" wx:if="{{item.product_cnt}}">
+            <view>内件数量</view><view>{{item.product_cnt}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="modal-footer ">
+      <button class="submit-order cancel-btn mini-btn" size="mini" type="primary" catchtap="cancelModal">取消</button>
+      <button class="submit-order mini-btn" size="mini" type="primary" catchtap="submitOrder">下单</button>
+    </view> 
+  </modal>
+</view>

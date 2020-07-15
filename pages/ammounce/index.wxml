@@ -1,0 +1,9 @@
+<!--pages/ammounce/index.wxml-->
+<view class="page">
+  <image src="../../icon/banner.jpeg"></image>
+  <view class="ammounce-content">
+    <view class="ammounce-title">公告</view>
+    <view class="ammounce-text">最新通知最新通知最新通知最新通知最新通知最新通知最新通最新通知最新通知最新通知最新通知最新通知最新通知最新通最新通知最新通知最新通知最新通知最新通知最新通知最新通最新通知最新通知最新通知最新通知最新通知最新通知最新通最新通知最新通知最新通知最新通知最新通知最新通知最新通最新通知最新通知最新通知最新通知最新通知最新通知最新通最新通知最新通知最新通知最新通知最新通知最新通知最新通</view>
+  </view>
+  
+</view>

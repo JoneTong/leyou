@@ -1,0 +1,23 @@
+/* pages/ammounce/index.wxss */
+.page{
+  padding: 0;
+}
+.page image{
+  width: 100%;
+  margin-bottom: 25px;
+  display: block;
+}
+.ammounce-content{
+  padding: 10px;
+}
+.ammounce-title{
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.ammounce-text{
+  font-size: 14px;
+  color: #666;
+  text-indent: 20px;
+  line-height: 24px;
+}

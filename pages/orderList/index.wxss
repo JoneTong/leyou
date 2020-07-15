@@ -1,0 +1,94 @@
+/* pages/orderList/index.wxss */
+.page{
+  padding: 20rpx;
+  padding-top: 190rpx;
+}
+.search{
+    width: 100%;
+    padding: 20rpx;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left:0;
+    background: #fff;
+    box-shadow: 0 2rpx 6rpx rgba(0,0,0,.2);
+    z-index: 999;
+}
+.search .page-section{
+  border: 2rpx solid #dfdfdf;
+  box-sizing: border-box;
+  border-radius: 40rpx;
+  padding: 10rpx 30rpx;
+  font-size: 24rpx;
+}
+.search .page-section.on{
+  color: #1ca3fa;
+  border: 2rpx solid #1ca3fa;
+  box-shadow: 0 0 20rpx 4rpx rgba(147, 157, 167, 0.2);
+}
+.search .page-section .weui-cells{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.search .page-section .weui-cells input,.search .page-section .weui-cells .weui-cell{
+  width: 100%;
+}
+.order-list{
+  border-radius: 10rpx;
+  box-shadow: 0 0 12rpx 2rpx rgba(0,0,0,.1);
+  padding: 20rpx;
+  font-size: 28rpx;
+  line-height: 60rpx;
+  margin-bottom: 30rpx;
+}
+.order-number{
+  border-bottom: 2rpx solid #dfdfdf;
+}
+.end-line{
+  text-align: center;
+  position: relative;
+  color: #dfdfdf;
+  font-size: 28rpx;
+}
+.login-tips{
+  font-size: 28rpx;
+  color: #bfbfbf;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+.login-tips image{
+  width: 360rpx;
+}
+.button-sp-area{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.button-sp-area button[type='default'][plain]{
+  font-size: 28rpx;
+  font-weight: normal;
+  border-color: #666;
+  color: #666;
+  border-radius: 40rpx;
+  margin: 0;
+  margin-left: 30rpx;
+}
+.list-tab{
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+.list-tab-item{
+  padding: 10rpx 30rpx 0 30rpx;
+  font-size: 28rpx;
+  line-height: 60rpx;
+}
+.list-tab-item.on{
+  border-bottom: 1px solid #1ca3fa;
+  color: #1ca3fa;
+}

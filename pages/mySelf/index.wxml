@@ -1,0 +1,20 @@
+<!--pages/mySelf/index.wxml-->
+<view class="page">
+  <view class="header-content">
+    <view class="header-img">
+      <open-data class="img" type="userAvatarUrl" ></open-data>
+    </view>
+    <view class="header-name"  wx:if="{{isLogin}}">{{name}}</view>
+    <view class="header-name" wx:else>未登录 <text catchtap="loginTo" style="color:#1ca3fa">去登录</text></view>
+  </view>
+  <view class="my-block">
+    <view class="my-block-items">
+      <image mode="aspectFit" src="../../icon/my-wallet.png"></image>
+      <view>余额 <text style="font-size:16px;color:#333;">{{money}}</text> ($)</view>
+    </view>
+    <view class="my-block-items" catchtap="orderList">
+      <image mode="aspectFit" src="../../icon/my-order.png"></image>
+      <view>包裹 <text style="font-size:16px;color:#333;">{{num}}</text> (件)</view>
+    </view>
+  </view>
+</view>

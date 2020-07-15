@@ -1,0 +1,25 @@
+<!--pages/receptAddress/index.wxml-->
+<view class="page">
+  <view class="search" >
+    <view class="page-section {{order_no?'on':''}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+        <!-- bindconfirm='searchOrder'  -->
+          <input class="weui-input" value="{{keywords}}" type="text" placeholder="收件人" bindinput="searchAdrress"/>
+        </view>
+        <icon class="icon-small" type="search" size="24" catchtap="searchAdrress" wx:if="{{keywords}}" color="#1ca3fa"></icon>
+        <icon class="icon-small" type="search" size="24" catchtap="searchAdrress" wx:else></icon>
+      </view>
+    </view>
+  </view>
+  <view class="address-modal">
+    <view class="address-modal-item {{currentIndex == index?'on':''}}" wx:for="{{useAddess}}" wx:key="index" catchtap="chooseAddress" data-index="{{index}}">
+      <view  class="modal-item">
+        <view>{{item.name}}</view><view>{{item.phone}}</view>
+      </view>
+      <view class="modal-address">{{item.address}}</view>
+    </view>
+  </view>
+  <view class="end-line" wx:if="{{(useAddess.length<1 && !loading && searchStatus) || (useAddess.length<1 && !loading && !searchStatus)}}">——暂无数据——</view>
+  <view class="end-line" wx:if="{{useAddess.length>0 && complete && !loading && !searchStatus}}">人家也是有底线的</view>
+</view>

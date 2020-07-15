@@ -1,0 +1,32 @@
+<!--pages/searchOrder/index.wxml-->
+<view class="page">
+  <view class="search" >
+    <view class="page-section {{order_no?'on':''}}">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+        <!-- bindconfirm='searchOrder'  -->
+          <input class="weui-input" value="{{order_no}}" type="text" placeholder="快递单号" bindinput="searchOrder"/>
+        </view>
+        <icon class="icon-small" type="search" size="24" catchtap="searchOrder" wx:if="{{order_no}}" color="#1ca3fa"></icon>
+        <icon class="icon-small" type="search" size="24" catchtap="searchOrder" wx:else></icon>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{order_no}}">
+    <!-- <view class="order-detail-info">
+      <view>快递单号：{{order_no}}</view>
+    </view> -->
+    <view class="order-detail" wx:if="{{stepsList.length>0 && !loading}}">
+      <view class="order-detail-title">物流信息</view>
+      <view class="order-detail-item" wx:for='{{stepsList}}' wx:key="index" >
+        <view>{{item.display}}</view>
+        <view style="color:#999">{{item.time}}</view>
+      </view>
+    </view>
+    <view class="end-line" wx:if="{{stepsList.length < 1 && !loading && order_no }}">暂无物流信息</view>
+  </view>
+  <view class="login-tips" wx:if="{{!order_no}}">
+    <image src="../../icon/login-icon.png" mode="aspectFit"></image>
+    <view>快递单号快速查询物流信息</view>
+  </view>
+</view>

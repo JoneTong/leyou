@@ -1,0 +1,24 @@
+<!--pages/orderDetail/index.wxml-->
+<view class="page">
+  <view>
+    <view class="order-detail-info">
+      <view>快 递 单 号：{{num}}</view>
+      <!-- <view>第三方单号：{{orderDetail.express_no}}</view> -->
+      <view>快 递 状 态：{{orderDetail.status}}</view>
+    </view>
+    <view class="order-detail" wx:if="{{orderDetail.trim.length>0 && !loading}}">
+      <view class="order-detail-title">内件信息</view>
+      <view class="order-goods" wx:for="{{orderDetail.trim}}" wx:key="index">
+        <view class="order-goods-items"><text>内件名称：</text><text>{{item.product_name}}</text></view>
+        <view class="order-goods-items">内件品牌：{{item.product_brand}}</view>
+        <view class="order-goods-items">内件名称：{{item.product_format}}</view>
+        <view class="order-goods-items">内件名称：{{item.product_cnt}}</view>
+      </view>
+    </view>
+    <view class="end-line" wx:if="{{orderDetail.trim.length<1 && !loading}}">暂无内件信息</view>
+  </view>
+  <!-- <view class="login-tips" wx:else>
+    <image src="../../icon/login-icon.png" mode="aspectFit"></image>
+    <view>未登录 <text catchtap="loginTo" style="color:#1ca3fa">去登录</text></view>
+  </view> -->
+</view>
